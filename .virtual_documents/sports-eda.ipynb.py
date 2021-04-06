@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 get_ipython().run_line_magic("matplotlib", " inline")
 
 
@@ -43,6 +44,12 @@ sucTeam.rename(columns={'winner':'Count of Wins'}, inplace=True)
 sucTeam.head()
 
 
+# visualize
+sns.barplot(x=sucTeam.index, y='Count of Wins', data=sucTeam)
+plt.xticks(rotation='vertical')
+plt.show()
+
+
 print('The most successful team is {}.'.format(sucTeam.index[0]))
 
 
@@ -52,6 +59,15 @@ playerOfMatch = matches['player_of_match'].value_counts().to_frame()
 # rename column
 playerOfMatch.rename(columns={'player_of_match':'Player of the Match Count'}, inplace=True)
 playerOfMatch.head()
+
+
+topPlayers = playerOfMatch.iloc[:10]
+
+
+# visualize
+sns.barplot(x=topPlayers.index, y='Player of the Match Count', data=topPlayers)
+plt.xticks(rotation='vertical')
+plt.show()
 
 
 print('The most successful player is {}.'.format(playerOfMatch.index[0]))
