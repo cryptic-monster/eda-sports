@@ -26,6 +26,9 @@ data = matchesDf.merge(deliveriesDf, left_on='id', right_on='match_id')
 data.head()
 
 
+data.dtypes
+
+
 data.shape
 
 
