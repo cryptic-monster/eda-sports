@@ -36,18 +36,18 @@ data.isnull().sum().sort_values(ascending=False)
 
 
 # count the win by each team
-sucTeam = data['winner'].value_counts().to_frame()
+sucTeam = matchesDf['winner'].value_counts().to_frame()
 
 # rename column
 sucTeam.rename(columns={'winner':'Count of Wins'}, inplace=True)
 sucTeam.head()
 
 
-print('The most successful team is {}'.format(sucTeam.index[0]))
+print('The most successful team is {}.'.format(sucTeam.index[0]))
 
 
 # count how many times the player become the player of the match
-playerOfMatch = data['player_of_match'].value_counts().to_frame()
+playerOfMatch = matchesDf['player_of_match'].value_counts().to_frame()
 
 # rename column
 playerOfMatch.rename(columns={'player_of_match':'Player of the Match Count'}, inplace=True)
