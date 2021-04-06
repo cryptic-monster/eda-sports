@@ -54,7 +54,7 @@ playerOfMatch.rename(columns={'player_of_match':'Player of the Match Count'}, in
 playerOfMatch.head()
 
 
-print('The most successful player is {}'.format(playerOfMatch.index[0]))
+print('The most successful player is {}.'.format(playerOfMatch.index[0]))
 
 
 batsmanGrp = deliveries.groupby(["match_id", "inning", "batting_team", "batsman"])
