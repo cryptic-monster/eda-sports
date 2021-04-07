@@ -5,20 +5,18 @@ import seaborn as sns
 get_ipython().run_line_magic("matplotlib", " inline")
 
 
-matches = pd.read_csv('data/matches.csv')
+matches = pd.read_csv('data/matches.csv', parse_dates=['date'])
 deliveries = pd.read_csv('data/deliveries.csv')
-
-
-deliveries.head()
 
 
 matches.head()
 
 
-deliveries.shape
+deliveries.head()
 
 
-matches.shape
+print('There are {} rows and {} columns on deliveries dataframe.'.format(deliveries.shape[0], deliveries.shape[1]))
+print('There are {} rows and {} columns on matches dataframe.'.format(matches.shape[0], matches.shape[1]))
 
 
 data = matches.merge(deliveries, left_on='id', right_on='match_id')
@@ -27,13 +25,58 @@ data = matches.merge(deliveries, left_on='id', right_on='match_id')
 data.head()
 
 
-data.dtypes
+# different datatypes in the merged dataframe
+dataTypes = data.dtypes 
+
+# count of null values in each columns
+nullCnt = data.isnull().sum().sort_values(ascending=False) 
+
+# concatenate
+dataProperty = pd.concat([dataTypes, nullCnt], axis=1)
+
+# rename columns
+columns = ['data type', 'count of nulls']
+dataProperty.columns = columns
+
+# sort by count of nulls
+dataProperty.sort_values(by='count of nulls', ascending=False, inplace=True)
+dataProperty
 
 
 data.shape
 
 
-data.isnull().sum().sort_values(ascending=False)
+matches.isnull().sum()
+
+
+matches.loc[matches['city'].isnull()]
+
+
+matches.loc[matches.venue == 'Dubai International Cricket Stadium', 'city'] = 'Dubai'
+
+
+matches.loc[matches['winner'].isnull()]
+
+
+matches.loc[matches['player_of_match'].isnull()]
+
+
+matches.loc[matches['result'] == 'no result']
+
+
+matches.drop(matches[matches['result'] == 'no result'].index, inplace=True)
+
+
+deliveries.isnull().sum()
+
+
+deliveries.loc[deliveries['fielder'].notna()]
+
+
+data = matches.merge(deliveries, left_on='id', right_on='match_id')`
+
+
+data.to_csv('data/merged_data.csv')
 
 
 # count the win by each team
@@ -76,6 +119,21 @@ print('The most successful player is {}.'.format(playerOfMatch.index[0]))
 batsmanGrp = deliveries.groupby(["match_id", "inning", "batting_team", "batsman"])
 batsmen = batsmanGrp["batsman_runs"].sum().reset_index()
 batsmen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
