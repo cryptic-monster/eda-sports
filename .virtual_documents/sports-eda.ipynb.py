@@ -19,6 +19,36 @@ print('There are {} rows and {} columns on deliveries dataframe.'.format(deliver
 print('There are {} rows and {} columns on matches dataframe.'.format(matches.shape[0], matches.shape[1]))
 
 
+matches.isnull().sum()
+
+
+matches.loc[matches['city'].isnull()]
+
+
+matches.loc[matches.venue == 'Dubai International Cricket Stadium', 'city'] = 'Dubai'
+
+
+matches.loc[matches['winner'].isnull()]
+
+
+matches.loc[matches['player_of_match'].isnull()]
+
+
+matches.loc[matches['result'] == 'no result']
+
+
+matches.drop(matches[matches['result'] == 'no result'].index, inplace=True)
+
+
+matches.to_csv('data/matches-cleaned.csv')
+
+
+deliveries.isnull().sum()
+
+
+deliveries.to_csv('data/deliveries-cleaned.csv')
+
+
 data = matches.merge(deliveries, left_on='id', right_on='match_id')
 
 
@@ -46,37 +76,10 @@ dataProperty
 data.shape
 
 
-matches.isnull().sum()
-
-
-matches.loc[matches['city'].isnull()]
-
-
-matches.loc[matches.venue == 'Dubai International Cricket Stadium', 'city'] = 'Dubai'
-
-
-matches.loc[matches['winner'].isnull()]
-
-
-matches.loc[matches['player_of_match'].isnull()]
-
-
-matches.loc[matches['result'] == 'no result']
-
-
-matches.drop(matches[matches['result'] == 'no result'].index, inplace=True)
-
-
-deliveries.isnull().sum()
-
-
-deliveries.loc[deliveries['fielder'].notna()]
-
-
-data = matches.merge(deliveries, left_on='id', right_on='match_id')`
-
-
 data.to_csv('data/merged_data.csv')
+
+
+
 
 
 # count the win by each team
